@@ -3,9 +3,7 @@ import util from "../util";
 
 export default class Products extends Component {
   render() {
-    if (this.props.isLoading) {
-      return <div>loading...</div>;
-    } else {
+
       const productItems = this.props.products.map((product, index) => (
         <div className="col-md-4" key={index}>
           <div className="thumbnail text-center">
@@ -23,8 +21,9 @@ export default class Products extends Component {
             </div>
           </div>
         </div>
+
       ));
       return <div className="row">{productItems}</div>;
-    }
+
   }
 }
