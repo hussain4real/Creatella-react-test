@@ -1,74 +1,12 @@
 import React, { Component } from "react";
 // import fetch from "isomorphic-fetch";
 import "./App.css";
-import Products from "./components/Products.jsx";
-import Loading from "./components/Loading.jsx";
+// import Loading from "./components/Loading.jsx";
+import ProductList from "./components/product-list/index.jsx";
 
-const ProductWithLoading = new Loading(Products);
+// const ProductWithLoading = new Loading(ProductList);
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: [],
-      filteredProducts: [],
-      isLoading: false,
-      limit: 25,
-      page: 1,
-      totalPages: false
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ isLoading: true });
-    this.scrollListener = window.addEventListener("scroll", e => {
-      this.handleScroll(e);
-    });
-    this.loadProducts();
-  }
-
-  handleScroll = e => {
-    const { scrolling, totalPages, page } = this.state;
-    if (scrolling) return;
-    if (totalPages <= page) return;
-    const lastDivChild = document.getElementById("wrap");
-    const contentHeight = lastDivChild.offsetHeight;
-    const yOffset = window.pageYOffset;
-    const y = yOffset + window.innerHeight;
-    if (y >= contentHeight) this.loadMore();
-    // const lastDivChildOffset =
-    //   lastDivChild.offsetTop + lastDivChild.clientHeight;
-    // const pageOffset = window.pageYOffset + window.innerHeight;
-    // let bottomOffset = 20;
-    // if (pageOffset > lastDivChildOffset - bottomOffset) this.loadMore();
-  };
-
-  loadProducts = () => {
-    const { limit, page, products } = this.state;
-    let url = `http://localhost:3000/products?_page=${page}&_limit=${limit}`;
-    fetch(url)
-      .then(res => res.json())
-      .then(json =>
-        this.setState({
-          isLoading: false,
-          products: [{ ...products, ...json.products }],
-
-          filteredProducts: json
-          // scrolling: false,
-          // total_pages: json.total_pages
-        })
-      );
-  };
-
-  loadMore = () => {
-    this.setState(
-      prevState => ({
-        page: (prevState.page += 1)
-      }),
-      this.loadProducts
-    );
-  };
-
   // onScroll = () => {
   //   window.addEventListener("scroll", () => {
   //     const {
@@ -95,7 +33,7 @@ export default class App extends Component {
   // };
   render() {
     return (
-      <div className="container" id="wrap">
+      <div className="container">
         <h1>Ascii Faces shopping App</h1>
         <hr />
         <div className="row">
@@ -104,14 +42,11 @@ export default class App extends Component {
               products={this.state.filteredProducts}
               handleAddToCart={this.state.handleAddToCart}
             /> */}
-            <ProductWithLoading
-              isLoading={this.state.isLoading}
-              products={this.state.filteredProducts}
-              handleAddToCart={this.state.handleAddToCart}
+            <ProductList
+            // isLoading={this.state.isLoading}
+            // products={this.state.filteredProducts}
             />
           </div>
-
-          <div className="col-md-4"></div>
         </div>
       </div>
     );
