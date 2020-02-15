@@ -3,27 +3,16 @@ import util from "../util";
 
 export default class Products extends Component {
   render() {
+    if (!this.props.products) return null;
+    if (!this.props.products.length) return <p>No repos, sorry</p>;
 
-      const productItems = this.props.products.map((product, index) => (
-        <div className="col-md-4" key={index}>
-          <div className="thumbnail text-center">
-            <a href={`#${product.id}`} onClick={this.props.handleAddToCart}>
-              <p>{product.face}</p>
-            </a>
-            <div>
-              <b>{util.formatCurrency(product.price)}</b>
-              <button
-                className="btn btn-primary"
-                onClick={e => this.props.handleAddToCart(e, product)}
-              >
-                Buy Now
-              </button>
-            </div>
-          </div>
+    return (
+      <div className="row">
+        <div className="col-md-4">
+          <div>{product.face}</div>
+          <div>{util.formatCurrency(product.price)}</div>
         </div>
-
-      ));
-      return <div className="row">{productItems}</div>;
-
+      </div>
+    );
   }
 }
