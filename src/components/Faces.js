@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Ad from "./Ad";
 import Face from "./Face";
-import Loading from "../Loading";
+import Loading from "./Loading";
 
 class Faces extends Component {
   /**
