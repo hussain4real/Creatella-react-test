@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Faces from "./Faces";
 import Ad from "./Ad";
 
-class Home extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -218,4 +218,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default App;
