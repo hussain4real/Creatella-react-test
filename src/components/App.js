@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Faces from "./Faces";
-import Ad from "./Ad";
+import Product from "./Products";
+import Ad from "./Ads";
 
-class Home extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -36,11 +36,10 @@ class Home extends Component {
     alert("Error");
   }
 
-  /**
-   * Generate the string endpoint for fetching products
-   *
-   * @returns {string} generated endpoint
-   */
+
+    // Generate the string endpoint for fetching products
+
+
   generateEndpoint() {
     const { productsUri, page, limit, sort } = this.state;
 
@@ -53,9 +52,9 @@ class Home extends Component {
     return endpoint;
   }
 
-  /**
-   * Fetch the products from the endpoint.
-   */
+
+    // Fetch products from the endpoint.
+
   fetchFirst20Faces() {
     const { totalProducts } = this.state;
 
@@ -85,9 +84,9 @@ class Home extends Component {
       });
   }
 
-  /**
-   * Fetch the next products for cache
-   */
+
+  //  Fetch the next products for cache
+
   fetchNextFaces() {
     let endpoint = this.generateEndpoint();
 
@@ -140,6 +139,7 @@ class Home extends Component {
       this.setState({
         products: this.state.products.concat(nextProducts),
         nextProducts: [],
+        isLoading:true,
         page: this.state.page + 1
       });
 
@@ -208,7 +208,7 @@ class Home extends Component {
             </div>
           </div>
         </div>
-        <Faces
+        <Product
           products={products}
           isLoading={nextProducts.length === 0}
           totalProducts={true}
@@ -218,4 +218,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default App;

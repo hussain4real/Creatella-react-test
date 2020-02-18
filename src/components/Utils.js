@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-class Face extends Component {
+class Util extends Component {
   formatPrice(value) {
     let price = value.toString();
     let len = price.length;
@@ -64,11 +64,11 @@ class Face extends Component {
   }
 }
 
-Face.propTypes = {
+Util.propTypes = {
   face: PropTypes.string.isRequired,
   size: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired
 };
 
-export default Face;
+export default Util;

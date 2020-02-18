@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Ad from "./Ad";
-import Face from "./Face";
+import Ad from "./Ads";
+import Util from "./Utils";
 import Loading from "./Loading";
 
-class Faces extends Component {
-  /**
-   * Render the products in a grid form.
-   *
-   * @returns {*}
-   */
-  renderFaces() {
-    const { products } = this.props;
+class Product extends Component {
 
-    if (products.length === 0) {
+    // Render the products in a grid form.
+
+  renderFaces() {
+    const { products, isLoading } = this.props;
+
+    if (products.length === 0 ) {
       return <Loading />;
     }
-
+// logic for displaying dissimilar ads
     return products.map(face => {
       if (face.hasOwnProperty("ad")) {
         return (
@@ -28,7 +26,7 @@ class Faces extends Component {
 
       return (
         <div key={face.id} className="col-lg-3 col-md-6 col-sm-12 text-center">
-          <Face
+          <Util
             face={face.face}
             size={face.size}
             price={face.price}
@@ -48,8 +46,9 @@ class Faces extends Component {
           {this.renderFaces()}
           {totalProducts >= products.length ? (
             products.length >= 20 && <Loading show={isLoading} />
-          ) : (
-            <p className="m-auto">~ end of catalogue ~</p>
+            ) : (
+              <p className="m-auto">~ end of catalogue ~</p>
+
           )}
         </div>
       </div>
@@ -57,10 +56,10 @@ class Faces extends Component {
   }
 }
 
-Faces.propTypes = {
+Product.propTypes = {
   products: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
   totalProducts: PropTypes.bool.isRequired
 };
 
-export default Faces;
+export default Product;
