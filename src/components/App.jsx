@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Product from "./Products";
-import Ad from "./Ads";
+import Product from "./Products.jsx";
+import Ad from "./Ads.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -25,11 +25,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll.bind(this));
+    window.addEventListener("scroll", this.handleScroll);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll.bind(this));
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   componentDidCatch() {
@@ -40,7 +40,7 @@ class App extends Component {
     // Generate the string endpoint for fetching products
 
 
-  generateEndpoint() {
+  generateEndpoint = () => {
     const { productsUri, page, limit, sort } = this.state;
 
     let endpoint = `${productsUri}?_page=${page}&_limit=${limit}`;
@@ -55,7 +55,7 @@ class App extends Component {
 
     // Fetch products from the endpoint.
 
-  fetchFirst20Faces() {
+  fetchFirst20Faces = () => {
     const { totalProducts } = this.state;
 
     let endpoint = this.generateEndpoint();
@@ -65,7 +65,9 @@ class App extends Component {
         if (totalProducts === 0) {
           this.setState({
             totalProducts: parseInt(res.headers.get("x-total-count"))
+
           });
+          console.log(totalProducts);
         }
 
         return res.json();
@@ -87,7 +89,7 @@ class App extends Component {
 
   //  Fetch the next products for cache
 
-  fetchNextFaces() {
+  fetchNextFaces = () => {
     let endpoint = this.generateEndpoint();
 
     fetch(endpoint)
@@ -104,12 +106,10 @@ class App extends Component {
       });
   }
 
-  /**
-   * Generate and return a random ID of a sponsor's image that isn't equal to the previous one.
-   *
-   * @returns {{ad: number}} ID of the next ad
-   */
-  fetchAds() {
+
+    //Generate and return a random ID of a sponsor's image that isn't equal to the previous one.
+
+  fetchAds = () => {
     const { previousAd } = this.state;
 
     let id = Math.floor(Math.random() * 1000);
@@ -124,9 +124,9 @@ class App extends Component {
   }
 
   /**
-   * Triggered when scrolling the browser. Upon reaching the bottom, more data is fetched and displayed.
+   * Triggered when scrolling the browser. Upon reaching the bottom, 20 more data is fetched and displayed including ads.
    */
-  handleScroll() {
+  handleScroll = () => {
     const { products, nextProducts, totalProducts, isLoading } = this.state;
 
     let wHeight = window.innerHeight;
@@ -147,12 +147,10 @@ class App extends Component {
     }
   }
 
-  /**
-   * Triggered when changing the sort option drop-down.
-   *
-   * @param e element of which the value is verified and sorted accordingly.
-   */
-  handleOnChange(e) {
+
+   // Triggered when changing the sort option drop-down.
+
+  handleOnChange = (e) => {
     const allowedSorts = ["none", "size", "price", "id"];
     const sort = e.target.value;
 
@@ -198,7 +196,7 @@ class App extends Component {
               <select
                 name="order"
                 className="form-control"
-                onChange={this.handleOnChange.bind(this)}
+                onChange={this.handleOnChange}
               >
                 <option value="none">No order</option>
                 <option value="size">By size</option>

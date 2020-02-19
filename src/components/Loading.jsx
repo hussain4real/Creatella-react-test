@@ -9,7 +9,7 @@ class Loading extends Component {
       show && (
         <div className="text-center m-auto">
           <div className="loader"></div>
-          <span className="small text-muted">Loading...</span>
+          <span className="medium badge badge-info font-weight-bold"  >Loading...<br/>Fetching more Faces :)</span>
         </div>
       )
     );

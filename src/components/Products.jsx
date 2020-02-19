@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Ad from "./Ads";
-import Util from "./Utils";
-import Loading from "./Loading";
+import Ad from "./Ads.jsx";
+import Util from "./Utils.jsx";
+import Loading from "./Loading.jsx";
 
 class Product extends Component {
 
     // Render the products in a grid form.
 
   renderFaces() {
-    const { products, isLoading } = this.props;
+    const { products,  } = this.props;
 
     if (products.length === 0 ) {
       return <Loading />;
@@ -42,12 +42,16 @@ class Product extends Component {
 
     return (
       <div className="col-lg-12 faces">
-        <div className="row">
+        <div className="row" key={products.id}>
           {this.renderFaces()}
           {totalProducts >= products.length ? (
-            products.length >= 20 && <Loading show={isLoading} />
+            products.length >= 20 && <Loading show={!isLoading} />
             ) : (
-              <p className="m-auto">~ end of catalogue ~</p>
+              <div className="text-center m-auto">
+
+                <Loading/>
+                 <p className="large text-danger font-weight-bold" >~ end of catalogue ~</p>
+              </div>
 
           )}
         </div>
