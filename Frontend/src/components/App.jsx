@@ -67,7 +67,7 @@ class App extends Component {
             totalProducts: parseInt(res.headers.get("x-total-count"))
 
           });
-          console.log(totalProducts);
+
         }
 
         return res.json();
