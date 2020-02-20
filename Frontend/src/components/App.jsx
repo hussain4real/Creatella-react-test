@@ -20,11 +20,12 @@ class App extends Component {
     };
   }
 
-  UNSAFE_componentWillMount() {
-    this.fetchFirst20Faces();
-  }
+  // UNSAFE_componentWillMount() {
 
-  componentDidMount() {
+  // }
+
+ async componentDidMount() {
+  await this.fetchFirst20Faces();
     window.addEventListener("scroll", this.handleScroll);
   }
 
@@ -32,7 +33,7 @@ class App extends Component {
     window.removeEventListener("scroll", this.handleScroll);
   }
 
-  componentDidCatch() {
+ componentDidCatch() {
     alert("Error");
   }
 
@@ -40,7 +41,7 @@ class App extends Component {
     // Generate the string endpoint for fetching products
 
 
-  generateEndpoint = () => {
+   generateEndpoint = () => {
     const { productsUri, page, limit, sort } = this.state;
 
     let endpoint = `${productsUri}?_page=${page}&_limit=${limit}`;
@@ -55,12 +56,12 @@ class App extends Component {
 
     // Fetch products from the endpoint.
 
-  fetchFirst20Faces = () => {
+  fetchFirst20Faces = async() => {
     const { totalProducts } = this.state;
 
     let endpoint = this.generateEndpoint();
 
-    fetch(endpoint)
+    await fetch(endpoint)
       .then(res => {
         if (totalProducts === 0) {
           this.setState({
@@ -89,10 +90,10 @@ class App extends Component {
 
   //  Fetch the next products for cache
 
-  fetchNextFaces = () => {
+  fetchNextFaces = async() => {
     let endpoint = this.generateEndpoint();
 
-    fetch(endpoint)
+    await fetch(endpoint)
       .then(res => {
         return res.json();
       })
