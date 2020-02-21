@@ -7,7 +7,7 @@ class Ad extends Component {
 
     return (
       <img
-        className="ad"
+        className="ad img-fluid"
         src={`http://localhost:3000/ads/?r=${id}`}
         alt="advert loading"
       />
